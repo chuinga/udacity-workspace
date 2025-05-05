@@ -1,16 +1,15 @@
 Parameters:
-  # ADD PARAMETERS HERE FOLLOWING THE VIDEO DEMONSTRATIONS
-  EnvironmentName:
-    Description: An environment name that will be prefixed to resource names
+
+  ProjectName:
+    Description: Project name used for tagging resources
     Type: String
 
   VpcCIDR: 
-    Description: Please enter the IP range (CIDR notation) for this VPC
+    Description: IP range for the VPC in CIDR notation
     Type: String
-    Default: 10.0.0.0/16
 
 Resources:
-  # ADD RESOURCES HERE FOLLOWING THE VIDEO DEMONSTRATIONS
+
   VPC: 
     Type: AWS::EC2::VPC
     Properties:
@@ -18,4 +17,17 @@ Resources:
       EnableDnsHostnames: true
       Tags: 
         - Key: Name 
-          Value: !Ref EnvironmentName
+          Value: !Ref ProjectName
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Ref ProjectName
+      
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
