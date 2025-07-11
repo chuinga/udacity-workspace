@@ -205,7 +205,7 @@ Outputs:
     Description: A reference to the created VPC
     Value: !Ref VPC
     Export:
-      Name: !Sub ${ProjectName}-vpcid
+      Name: !Sub ${ProjectName}-VPCID
 
   VPCPublicRouteTable:
     Description: Public Routing
